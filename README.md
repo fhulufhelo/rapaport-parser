@@ -236,7 +236,9 @@ composer install
 RAPAPORT_FIXTURE=/path/to/report.pdf vendor/bin/phpunit
 ```
 
-The suite skips itself without a fixture, since the reports are copyrighted and are not committed. Against the July 2026 report (5 pages, 42 grids, 3,360 prices) it checks that:
+Most of the suite runs anywhere: the grid parser is driven with synthetic text, so the side-by-side layout, the shifted-font headers, the `I` colour-versus-clarity clash, the parcel layout and grid widths from 3 to 12 columns are all covered without a PDF. That is what CI runs on PHP 8.0 through 8.4.
+
+The end-to-end tests need a real report, which is copyrighted and not committed, so they skip without one. Against the July 2026 report (5 pages, 42 grids, 3,360 prices) they check that:
 
 - every grid reads with no issues, and every row is as wide as its header with no gaps
 - the clarity suffixes survive — no `VVS,VVS`, no numbered `COL` fallbacks
