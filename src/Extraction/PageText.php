@@ -34,6 +34,32 @@ final class PageText
     }
 
     /**
+     * Each visual line rejoined into one string.
+     *
+     * Backends differ in how much text a run holds — poppler reports a box per
+     * word, others a whole line — so anything matching against running text has
+     * to rebuild the line rather than read a single run.
+     *
+     * @return list<string>
+     */
+    public function lines(float $tolerance): array
+    {
+        $lines = [];
+
+        foreach ($this->rows($tolerance) as $row) {
+            $parts = [];
+
+            foreach ($row as $run) {
+                $parts[] = $run->text();
+            }
+
+            $lines[] = implode(' ', $parts);
+        }
+
+        return $lines;
+    }
+
+    /**
      * Runs bucketed into visual lines, each sorted left to right.
      *
      * @return list<list<TextRun>>

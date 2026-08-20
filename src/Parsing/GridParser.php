@@ -67,6 +67,11 @@ final class GridParser
         $this->rowTolerance = $rowTolerance;
     }
 
+    public function rowTolerance(): float
+    {
+        return $this->rowTolerance;
+    }
+
     /**
      * @param  list<PageText>  $pages
      * @return list<array<string, mixed>>

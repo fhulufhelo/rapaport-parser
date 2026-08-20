@@ -177,8 +177,10 @@ final class RapaportParser
 
         $pattern = '/^(.+?)\s*:\s*Volume\s+(\d+)\s+No\.\s*(\d+)\s*:\s*(.+?)\s*:\s*Page/i';
 
-        foreach ($first->runs() as $run) {
-            foreach (ShiftedFont::readings($run->text()) as $text) {
+        // Read whole lines: with a backend that reports one run per word, no
+        // single run ever holds the masthead.
+        foreach ($first->lines($this->grids->rowTolerance()) as $line) {
+            foreach (ShiftedFont::readings($line) as $text) {
                 if (! preg_match($pattern, trim($text), $match)) {
                     continue;
                 }
