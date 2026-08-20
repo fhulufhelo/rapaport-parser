@@ -60,6 +60,29 @@ final class PageText
     }
 
     /**
+     * Each visual line as the list of its runs' texts, left to right, so the
+     * caller can decode the parts before joining them.
+     *
+     * @return list<list<string>>
+     */
+    public function lineParts(float $tolerance): array
+    {
+        $lines = [];
+
+        foreach ($this->rows($tolerance) as $row) {
+            $parts = [];
+
+            foreach ($row as $run) {
+                $parts[] = $run->text();
+            }
+
+            $lines[] = $parts;
+        }
+
+        return $lines;
+    }
+
+    /**
      * Runs bucketed into visual lines, each sorted left to right.
      *
      * @return list<list<TextRun>>

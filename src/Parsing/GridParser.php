@@ -275,19 +275,28 @@ final class GridParser
                 continue;
             }
 
+            // The index line and the premium notes are sentences. A backend
+            // that reports one run per word never holds one in a single run,
+            // so the line is rebuilt before matching.
+            $parts = [];
+
             foreach ($row as $run) {
-                if (! $this->within($run, $span)) {
-                    continue;
+                if ($this->within($run, $span)) {
+                    $parts[] = $run->text();
+                }
+            }
+
+            if ($parts === []) {
+                continue;
+            }
+
+            foreach (ShiftedFont::lineReadings($parts) as $text) {
+                foreach ($this->indexValues($text) as $key => $value) {
+                    $open[$index]['index'][$key] = $value;
                 }
 
-                foreach (ShiftedFont::readings($run->text()) as $text) {
-                    foreach ($this->indexValues($text) as $key => $value) {
-                        $open[$index]['index'][$key] = $value;
-                    }
-
-                    if (preg_match(self::NOTE, $text)) {
-                        $open[$index]['notes'][] = trim($text);
-                    }
+                if (preg_match(self::NOTE, $text)) {
+                    $open[$index]['notes'][] = trim($text);
                 }
             }
         }

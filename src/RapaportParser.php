@@ -179,8 +179,8 @@ final class RapaportParser
 
         // Read whole lines: with a backend that reports one run per word, no
         // single run ever holds the masthead.
-        foreach ($first->lines($this->grids->rowTolerance()) as $line) {
-            foreach (ShiftedFont::readings($line) as $text) {
+        foreach ($first->lineParts($this->grids->rowTolerance()) as $parts) {
+            foreach (ShiftedFont::lineReadings($parts) as $text) {
                 if (! preg_match($pattern, trim($text), $match)) {
                     continue;
                 }

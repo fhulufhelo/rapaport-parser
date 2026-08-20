@@ -57,6 +57,25 @@ final class ShiftedFont
     }
 
     /**
+     * Readings for a line assembled from several runs.
+     *
+     * Each part is decoded on its own before the line is joined. Decoding the
+     * joined string instead would shift the joining spaces too, dropping "="
+     * between every word of a shifted line.
+     *
+     * @param list<string> $parts
+     *
+     * @return list<string>
+     */
+    public static function lineReadings(array $parts): array
+    {
+        $raw = implode(' ', $parts);
+        $decoded = implode(' ', array_map([self::class, 'decode'], $parts));
+
+        return $decoded === $raw ? [$raw] : [$raw, $decoded];
+    }
+
+    /**
      * The first reading that satisfies $matches, or null when neither does.
      *
      * @param  callable(string): bool  $matches

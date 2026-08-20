@@ -167,6 +167,47 @@ class GridParserTest extends TestCase
         $this->assertSame('up to 0.01 CT.', $tables[0]['size_label']);
     }
 
+    /**
+     * The index line and the premium note are sentences, so they must survive a
+     * backend that reports one run per word.
+     */
+    public function test_it_reads_the_index_line_and_notes_split_across_runs(): void
+    {
+        $page = $this->page(
+            ['1.00 - 1.49' => [30, 20, 10]],
+            ['IF', 'VS1', 'SI1'],
+            ['D']
+        );
+
+        $runs = $page->runs();
+        $y = 300.0;
+        $x = self::LEFT;
+
+        // "W: 17.00 = 0.00%  T: 10.45 = 0.00%" then a premium note, one run per word.
+        foreach (['W:', '17.00', '=', '0.00%', 'T:', '10.45', '=', '0.00%'] as $word) {
+            $runs[] = new TextRun($x, $y, [$word], $x + 12);
+            $x += 18.0;
+        }
+
+        $x = self::LEFT;
+
+        foreach (explode(' ', '0.60 - 0.69 may trade at 10% to 15% premiums over 0.50') as $word) {
+            $runs[] = new TextRun($x, $y + 14.0, [$word], $x + 10);
+            $x += 14.0;
+        }
+
+        $tables = (new GridParser())->parse([new PageText(1, $runs)]);
+
+        $this->assertSame(
+            ['W' => ['value' => 17.0, 'change_pct' => 0.0], 'T' => ['value' => 10.45, 'change_pct' => 0.0]],
+            $tables[0]['index']
+        );
+        $this->assertSame(
+            ['0.60 - 0.69 may trade at 10% to 15% premiums over 0.50'],
+            $tables[0]['notes']
+        );
+    }
+
     // ------------------------------------------------------------------ setup
 
     /**
