@@ -1,0 +1,5 @@
+# Test fixtures are copyrighted reports and are not committed.
+# Point the suite at your own copy:
+#   RAPAPORT_FIXTURE=/path/to/report.pdf vendor/bin/phpunit
+*
+!.gitignore

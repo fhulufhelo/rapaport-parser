@@ -1,0 +1,10 @@
+/vendor/
+composer.lock
+.phpunit.result.cache
+/.phpunit.cache/
+.DS_Store
+/.idea/
+/.vscode/
+
+# Rapaport reports are copyrighted; never commit one.
+*.pdf

@@ -1,0 +1,38 @@
+{
+    "name": "fhulufhelo/rapaport-parser",
+    "description": "Extracts the colour x clarity price grids from Rapaport Diamond Report PDFs into structured data.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["rapaport", "diamond", "pdf", "parser", "price-list"],
+    "require": {
+        "php": "^8.0",
+        "ext-mbstring": "*",
+        "ext-zlib": "*",
+        "smalot/pdfparser": "^2.9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6 || ^10.5 || ^11.0 || ^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fhulufhelo\\Rapaport\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fhulufhelo\\Rapaport\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fhulufhelo\\Rapaport\\Laravel\\RapaportServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
