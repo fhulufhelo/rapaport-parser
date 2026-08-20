@@ -3,6 +3,7 @@
 [![CI](https://github.com/fhulufhelo/rapaport-parser/actions/workflows/ci.yml/badge.svg)](https://github.com/fhulufhelo/rapaport-parser/actions/workflows/ci.yml)
 [![PHP](https://img.shields.io/badge/php-8.0%20%E2%80%93%208.5-777bb4)](composer.json)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Packagist](https://img.shields.io/packagist/v/fhulufhelo/rapaport-parser)](https://packagist.org/packages/fhulufhelo/rapaport-parser)
 
 Reads the colour × clarity price grids out of a Rapaport Diamond Report PDF and hands them back as structured data.
 
@@ -40,13 +41,6 @@ $list->toArray();                                // everything, as nested arrays
 
 ```bash
 composer require fhulufhelo/rapaport-parser
-```
-
-Not on Packagist yet, so add the repository first:
-
-```bash
-composer config repositories.rapaport vcs https://github.com/fhulufhelo/rapaport-parser
-composer require fhulufhelo/rapaport-parser:dev-main
 ```
 
 It also needs **poppler** for text extraction:
