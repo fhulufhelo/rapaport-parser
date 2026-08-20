@@ -3,7 +3,24 @@
     "description": "Extracts the colour x clarity price grids from Rapaport Diamond Report PDFs into structured data.",
     "type": "library",
     "license": "MIT",
-    "keywords": ["rapaport", "diamond", "pdf", "parser", "price-list"],
+    "keywords": [
+        "rapaport",
+        "diamond",
+        "pdf",
+        "parser",
+        "price-list"
+    ],
+    "homepage": "https://github.com/fhulufhelo/rapaport-parser",
+    "authors": [
+        {
+            "name": "Fhulufhelo Mokhomi",
+            "homepage": "https://github.com/fhulufhelo"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/fhulufhelo/rapaport-parser/issues",
+        "source": "https://github.com/fhulufhelo/rapaport-parser"
+    },
     "require": {
         "php": "^8.0",
         "ext-mbstring": "*",
